@@ -1,4 +1,6 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+const UserModel = require('../models/userModel');
+
 require('dotenv').config();
 require('dotenv-defaults').config();
 
@@ -10,5 +12,10 @@ const db_host = process.env.DB_HOST;
 
 const sequelize = new Sequelize(`postgres://${db_user}:${db_pass}@${db_host}:${port}/${db_name}`);
 
+const User = UserModel(sequelize, DataTypes);
 
-module.exports = sequelize;
+
+module.exports = {
+  sequelize,
+  User
+};
