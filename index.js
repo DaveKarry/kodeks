@@ -4,9 +4,16 @@ const errorHandler = require('./middlware/errorHandler');
 const router = require('./routers');
 require('dotenv').config();
 require('dotenv-defaults').config();
+const cors = require('cors');
+const options = require('./swagger');
 
 
 const app = express();
+const expressSwagger = require('express-swagger-generator')(app);
+app.use(cors());
+
+expressSwagger(options);
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true,}));
 
