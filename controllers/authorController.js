@@ -1,21 +1,16 @@
 const ApiError = require('../error/ApiError');
 const jwt = require('jsonwebtoken');
 const { Author } = require('../database/initdb');
-const { logSuccess } = require('./logger');
+const { logSuccess, createDatalog } = require('./logger');
 
 class AuthorController{
 
   async create(req,res, next){
     const {name} = req.body;
     const token = req.headers.authorization.split(' ')[1];
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    const {login, id} = jwt.verify(token, process.env.SECRET_KEY);
+    const {id} = jwt.verify(token, process.env.SECRET_KEY);
 
-    const datalog = {
-      ip,
-      login,
-      request: req.originalUrl
-    };
+    const datalog = createDatalog(req);
 
     if (!name) {
       return next(ApiError.badRequest('Пустые поля', datalog));

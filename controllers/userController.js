@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {User} = require('../database/initdb');
 const ApiError = require('../error/ApiError');
-const {logSuccess} = require('../controllers/logger');
+const {logSuccess, createDatalog} = require('../controllers/logger');
 
 const generateJWT = (id, login) =>{
   return jwt.sign(
@@ -15,12 +15,8 @@ const generateJWT = (id, login) =>{
 class UserController{
   async registration(req,res, next){
     const {login, password} = req.body;
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    const datalog = {
-      ip,
-      login,
-      request: req.originalUrl
-    };
+    const datalog = createDatalog(req);
+
     if (!login||!password){
       return next(ApiError.badRequest('Пустые поля', datalog));
     }
