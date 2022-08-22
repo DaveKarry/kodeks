@@ -31,8 +31,20 @@ class AuthorController{
 
   }
 
-  async get(req,res){
+  async get(req,res, next){
+    const {id} = req.query;
+    const datalog = createDatalog(req);
+
+    const author = await Author.findByPk(id).catch(()=>{
+      next(ApiError.badRequest('Ошибка неверный формат id', datalog));
+    });
+    if (author){
+      res.json(author);
+    } else {
+      next(ApiError.notFound('Не найден', datalog));
+    }
     
+    return;
   }
 
   async update(req,res){
