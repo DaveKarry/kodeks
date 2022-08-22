@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const {
   createLogger,
   transports,
@@ -28,7 +29,20 @@ function logError(data) {
 }
 
 function logSuccess(data) {
-  logger.log('info', `login - ${data.login}, ip - ${data.ip}, request - ${data.request}`);
+  logger.log('info', `login - ${data.login}, ip - ${data.ip}, request - ${data.request}, status - 200`);
 }
 
-module.exports = {logError, logSuccess};
+function createDatalog(req){
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  const token = req.headers.authorization.split(' ')[1];
+  const decode = jwt.verify(token, process.env.SECRET_KEY);
+  const login = decode.login || req?.body?.login;
+  
+  return {
+    ip,
+    login,
+    request: req.originalUrl
+  };
+}
+
+module.exports = {logError, logSuccess, createDatalog};
