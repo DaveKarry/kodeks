@@ -11,12 +11,11 @@ module.exports = (sequelize) => {
     },
     login: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      isLowercase: true,
-      notEmpty: true,
       validate: {
         isEmail: true,
+        unique: true,
+        notEmpty: true,
+        isLowercase: true,
       },
     },
     password: {
