@@ -28,7 +28,7 @@ function logError(data) {
 }
 
 function logSuccess(data) {
-  logger.log('info', `login - ${data.login}, ip - ${data.ip}, request - ${data.request}`);
+  logger.log('info', `login - ${data.login}, ip - ${data.ip}, request - ${data.request}, status - 200`);
 }
 
 module.exports = {logError, logSuccess};
