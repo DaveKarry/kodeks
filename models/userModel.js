@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       validate: {
         isEmail: true,
-        unique: true,
         notEmpty: true,
         isLowercase: true,
       },

@@ -20,7 +20,7 @@ class AuthorController{
       if (err?.original?.code === '23505'){
         next(ApiError.badRequest('Уже существует музыкант', datalog));
       }else {
-        next(ApiError.internal('Ошибка валидации', datalog));
+        next(ApiError.badRequest('Ошибка валидации', datalog));
       }
     });
     if (newAuthor){

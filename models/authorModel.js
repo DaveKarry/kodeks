@@ -15,7 +15,6 @@ module.exports = (sequelize) => {
         // /\/\онеточка не пройдет
         isAlpha: true,
         isLowercase: true,
-        unique: true,
         notEmpty: true,
         isMonetochka(value) {
           if (value === 'monetocka') {

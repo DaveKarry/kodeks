@@ -5,14 +5,14 @@ const router = require('./routers');
 require('dotenv').config();
 require('dotenv-defaults').config();
 const cors = require('cors');
-const options = require('./swagger');
+const swaggerUI = require('swagger-ui-express');
+const docs = require('./docs');
 
 
 const app = express();
-const expressSwagger = require('express-swagger-generator')(app);
 app.use(cors());
 
-expressSwagger(options);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true,}));

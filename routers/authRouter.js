@@ -2,12 +2,6 @@ const Router = require('express');
 const userController = require('../controllers/userController');
 const router = new Router();
 
-/**
- * @typedef User
- * @property {string} login.required - Login
- * @property {string} password.required - Password
- */
-
 
 /**
  * Регистрация пользователя
