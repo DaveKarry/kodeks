@@ -31,7 +31,7 @@ class AuthorController{
 
   }
 
-  async get(req,res, next){
+  async getOne(req,res, next){
     const {id} = req.query;
     const datalog = createDatalog(req);
 
@@ -55,7 +55,7 @@ class AuthorController{
 
   }
 
-  async getOne(req,res){
+  async get(req,res){
 
   }
 }

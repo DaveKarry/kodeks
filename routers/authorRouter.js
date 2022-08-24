@@ -1,6 +1,10 @@
 const Router = require('express');
 const AuthorController = require('../controllers/authorController');
+const authHandler = require('../middlware/authHandler');
+
+
 const router = new Router();
+
 
 /**
  * Регистрация пользователя
@@ -10,7 +14,7 @@ const router = new Router();
  * @returns {object} 200 - новая запись
  * @returns {Error}  400 - Пустые поля / Уже существует музыкант / Ошибка валидации
  */
-router.post('/v1', AuthorController.create);
+router.post('/v1',authHandler, AuthorController.create);
 /**
  * плучить автора по id
  * @route GET /author/v1
@@ -19,10 +23,10 @@ router.post('/v1', AuthorController.create);
  * @returns {object} 200 - новая запись
  * @returns {Error}  400 - Пустые поля / Уже существует музыкант / Ошибка валидации
  */
-router.get('/v1', AuthorController.get);
-router.get('/v1/:id', AuthorController.getOne);
-router.put('/v1', AuthorController.update);
-router.delete('/v1', AuthorController.delete);
+router.get('/v1/:id',authHandler, AuthorController.getOne);
+router.get('/v1',authHandler, AuthorController.get);
+router.put('/v1',authHandler, AuthorController.update);
+router.delete('/v1',authHandler, AuthorController.delete);
 
 
 module.exports = router;
