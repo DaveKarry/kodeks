@@ -54,13 +54,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'Пустые поля / Пользователь с такой почтой зарегистрирован / Ошибка валидации'
-                    }
-                  }
+                  $ref: '#/components/schemas/ValidationError'
                 }
               }
             }
@@ -138,13 +132,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'Нет пользователя с такой почтой'
-                    }
-                  }
+                  $ref: '#/components/schemas/NotFound'
                 }
               }
             }
@@ -192,13 +180,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'Пустые поля / Уже существует музыкант / Ошибка валидации'
-                    }
-                  }
+                  $ref: '#/components/schemas/ValidationError'
                 }
               }
             }
@@ -254,13 +236,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'не найден'
-                    }
-                  }
+                  $ref: '#/components/schemas/NotFound'
                 }
               }
             }
@@ -270,13 +246,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'Ошибка неверный формат id'
-                    }
-                  }
+                  $ref: '#/components/schemas/ValidationError'
                 }
               }
             }
@@ -312,13 +282,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'не найден'
-                    }
-                  }
+                  $ref: '#/components/schemas/NotFound'
                 }
               }
             }
@@ -372,13 +336,7 @@ module.exports = {
             'content': {
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'Ошибка валидации'
-                    }
-                  }
+                  $ref: '#/components/schemas/ValidationError'
                 }
               }
             },
@@ -388,13 +346,7 @@ module.exports = {
             'content':{
               'application/json': {
                 'schema': {
-                  'type': 'object',
-                  'properties': {
-                    'message': {
-                      'type': 'string',
-                      'description': 'не найден'
-                    }
-                  }
+                  $ref: '#/components/schemas/NotFound'
                 }
               }
             }
