@@ -30,7 +30,7 @@ class AuthorController{
     return;
 
   }
-  async getAll(req,res, next){
+  async getAll(req,res){
     const authors = await Author.findAll({attributes: ['id','name']});
     const datalog = createDatalog(req);
     logSuccess(datalog);
