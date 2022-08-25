@@ -60,7 +60,32 @@ class AuthorController{
     return;
   }
 
-  async update(req,res){
+  async update(req,res, next){
+    const {id} = req.params;
+    const {name} = req.body;
+    const datalog = createDatalog(req);
+    const result = await Author.update({ name: name }, {
+      where: { id },
+      returning: true,
+    }).catch((err)=>{
+      if (err?.original?.code === '23505'){
+        next(ApiError.badRequest('Уже существует музыкант', datalog));
+      }else {
+        next(ApiError.badRequest('Ошибка валидации', datalog));
+      }
+    });
+    if (result){
+      const [,[updated]] = result;
+      if (updated){
+        logSuccess(datalog);
+        res.json(updated);
+      }
+      else {
+        next(ApiError.notFound('Не найден', datalog));
+      }
+    }
+    return;
+  
 
   }
 

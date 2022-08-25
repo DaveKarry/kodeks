@@ -324,7 +324,83 @@ module.exports = {
             }
           }
         }
-      }
+      },
+      'put':{
+        'tags': [
+          'author'
+        ],
+        'summary': 'Обновляет автора по id',
+        parameters:[
+          {
+            name:'id',
+            in:'path',
+            required:true,
+            description: 'id пользователя'
+          }
+        ],
+        'requestBody': {
+          'content': {
+            'application/json': {
+              'schema': {
+                'type': 'object',
+                'required': [
+                  'name',
+                ],
+                'properties': {
+                  'name': {
+                    'type': 'string',
+                    'description': 'Название группы'
+                  },
+                }
+              }
+            }
+          }
+        },
+        'responses': {
+          '200': {
+            'description': 'Запись автора из бд',
+            'content': {
+              'application/json': {
+                'schema': {
+                  $ref:'#/components/schemas/Author'
+                }
+              }
+            },
+          },
+          '400': {
+            'description': 'Ошибка',
+            'content': {
+              'application/json': {
+                'schema': {
+                  'type': 'object',
+                  'properties': {
+                    'message': {
+                      'type': 'string',
+                      'description': 'Ошибка валидации'
+                    }
+                  }
+                }
+              }
+            },
+          },
+          '404': {
+            'description': 'Не найден',
+            'content':{
+              'application/json': {
+                'schema': {
+                  'type': 'object',
+                  'properties': {
+                    'message': {
+                      'type': 'string',
+                      'description': 'не найден'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
     }
   }
 };

@@ -26,8 +26,7 @@ router.post('/v1',authHandler, AuthorController.create);
 router.get('/v1/:id',authHandler, AuthorController.getOne);
 
 router.get('/v1',authHandler, AuthorController.getAll);
-
-router.put('/v1',authHandler, AuthorController.update);
+router.put('/v1/:id',authHandler, AuthorController.update);
 router.delete('/v1/:id',authHandler, AuthorController.delete);
 
 
