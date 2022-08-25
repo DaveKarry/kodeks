@@ -24,7 +24,7 @@ class UserController{
     const user = await User.create({
       login: login.trim().toLowerCase(),
       password: hashPassword
-    }).catch(()=>{
+    }).catch((err)=>{
       if (err?.original?.code === '23505'){
         next(ApiError.badRequest('Пользователь с такой почтой зарегистрирован', datalog));
       }else {
