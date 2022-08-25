@@ -106,7 +106,7 @@ class MusicController{
   async delete(req,res, next){
     const {id} = req.params;
     const datalog = createDatalog(req);
-    const name = await Music.findByPk(id);
+    const {name} = await Music.findByPk(id, {attributes: ['name']});
     const result = await Music.destroy({
       where: {
         id
