@@ -24,7 +24,9 @@ router.post('/v1',authHandler, AuthorController.create);
  * @returns {Error}  400 - Пустые поля / Уже существует музыкант / Ошибка валидации
  */
 router.get('/v1/:id',authHandler, AuthorController.getOne);
-router.get('/v1',authHandler, AuthorController.get);
+
+router.get('/v1',authHandler, AuthorController.getAll);
+
 router.put('/v1',authHandler, AuthorController.update);
 router.delete('/v1',authHandler, AuthorController.delete);
 

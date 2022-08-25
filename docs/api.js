@@ -204,7 +204,9 @@ module.exports = {
             }
           }
         }
-      },
+      }
+    },
+    '/api/author/v1/{id}': {
       'get':{
         'tags': [
           'author'
@@ -213,7 +215,7 @@ module.exports = {
         parameters:[
           {
             name:'id',
-            in:'query',
+            in:'path',
             required:true,
             description: 'id пользователя'
           }
