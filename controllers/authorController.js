@@ -2,6 +2,7 @@ const ApiError = require('../error/ApiError');
 const jwt = require('jsonwebtoken');
 const { Author } = require('../database/initdb');
 const { logSuccess, createDatalog } = require('./logger');
+var fs = require('fs');
 
 class AuthorController{
 
@@ -107,8 +108,8 @@ class AuthorController{
     });
     if (result){
       logSuccess(datalog);
-
-      return res.status('200').json('Удалено');
+      fs.rmSync(`files/${id}`, { recursive: true, force: true });
+      return res.status(200).json('Удалено');
     }
 
     next(ApiError.notFound(`Не найден ${id}`, datalog));

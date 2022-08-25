@@ -22,7 +22,7 @@ User.hasOne(Author);
 Author.belongsTo(User);
 
 
-Author.hasOne(Music);
+Author.hasMany(Music, { onDelete: 'cascade' });
 Music.belongsTo(Author);
 
 
