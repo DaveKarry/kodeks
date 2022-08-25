@@ -2,12 +2,12 @@ const express = require('express');
 const {sequelize} = require('./database/initdb');
 const errorHandler = require('./middlware/errorHandler');
 const router = require('./routers');
-require('dotenv').config();
-require('dotenv-defaults').config();
+const formData = require('express-form-data');
 const cors = require('cors');
 const swaggerUI = require('swagger-ui-express');
 const docs = require('./docs');
-
+require('dotenv').config();
+require('dotenv-defaults').config();
 
 const app = express();
 app.use(cors());
@@ -16,6 +16,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true,}));
+app.use(formData.parse({ autoFields: true }));
+
 
 app.use('/api',router);
 app.use(errorHandler);

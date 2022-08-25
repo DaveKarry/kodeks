@@ -353,6 +353,55 @@ module.exports = {
           }
         }
       },
+    },
+    '/api/music/v1/': {
+      'post':{
+        'tags': [
+          'music'
+        ],
+        'summary': 'Позволяет создать музыку',
+        'requestBody': {
+          'content': {
+            'multipart/form-data': {
+              'schema': {
+                'type': 'object',
+                'properties': {
+                  'files': {
+                    'type': 'string',
+                    'format': 'binary'
+                  },
+                  'authorId': {
+                    'type': 'string',
+                    'description': 'id музыканта'
+                  },
+                }
+              }
+            }
+          }
+        },
+        'responses': {
+          '200': {
+            'description': 'Успешное создание создает автора',
+            'content': {
+              'application/json': {
+                'schema': {
+                  $ref:'#/components/schemas/Author'
+                }
+              }
+            },
+          },
+          '400':{
+            'description': 'Ошибка',
+            'content':{
+              'application/json': {
+                'schema': {
+                  $ref: '#/components/schemas/ValidationError'
+                }
+              }
+            }
+          }
+        }
+      },
     }
   }
 };

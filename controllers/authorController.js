@@ -15,6 +15,8 @@ class AuthorController{
     if (!name) {
       return next(ApiError.badRequest('Пустые поля', datalog));
     }
+
+    // findOrCreate нашел поздно, нужно исправить
     const newAuthor = await Author.create({
       name: name.trim().toLowerCase(),
       userId: id
