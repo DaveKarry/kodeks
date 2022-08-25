@@ -389,7 +389,7 @@ module.exports = {
             'content': {
               'application/json': {
                 'schema': {
-                  $ref:'#/components/schemas/Author'
+                  $ref:'#/components/schemas/Music'
                 }
               }
             },
@@ -406,6 +406,61 @@ module.exports = {
           }
         }
       },
+      'get':{
+        'tags': [
+          'music'
+        ],
+        'summary': 'Получает музыки',
+        parameters:[
+          {
+            name:'limit',
+            in:'query',
+            description: 'limit'
+          },
+          {
+            name:'offset',
+            in:'query',
+            description: 'offset'
+          },
+          {
+            name:'id',
+            in:'query',
+            description: 'id'
+          },
+          {
+            name:'authorId',
+            in:'query',
+            description: 'authorId'
+          },
+          {
+            name:'name',
+            in:'query',
+            description: 'name'
+          },
+          {
+            name:'start',
+            in:'query',
+            description: 'start'
+          },
+          {
+            name:'end',
+            in:'query',
+            description: 'end'
+          },
+        ],
+        'responses': {
+          '200': {
+            'description': 'Запись автора из бд',
+            'content': {
+              'application/json': {
+                'schema': {
+                  $ref:'#/components/schemas/Music'
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 };

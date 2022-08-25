@@ -1,8 +1,9 @@
 const { logSuccess, createDatalog } = require('./logger');
 const ApiError = require('../error/ApiError');
 const { Author, Music } = require('../database/initdb');
-var fs = require('fs');
-
+const fs = require('fs');
+const { Op } = require('sequelize');
+const moment = require('moment');
 
 class MusicController{
   async create(req,res,next){
@@ -55,8 +56,51 @@ class MusicController{
 
   }
 
-  async get(){
+  async get(req,res,next){
+    const {limit, offset, id, authorId, name, start, end} = req.query;
+    const datalog = createDatalog(req);
+    try {
 
+      let musics;
+      let idArray;
+      let authoridArray;
+      let query = {};
+      if (id){
+        idArray = id.split('&');
+        query.id = {[Op.in]: idArray};
+      }
+  
+      if (authorId){
+        authoridArray = authorId.split('&');
+        query.authorId = {[Op.in]: authoridArray};
+        
+      }
+  
+      if (name){
+        query.name = {[Op.regexp]: name.trim().toLowerCase()};
+        
+      }
+      if (start){
+        query.createdAt = {[Op.gte]: moment(start).toDate()};
+      }
+      if (end){
+        query.createdAt = {[Op.lte]: moment(end).toDate()};
+      }
+  
+      musics = await Music.findAll({
+        where: {...query},
+        limit,
+        offset,
+        include: {
+          model: Author,
+          attributes: ['name', 'id']
+        }
+      });
+      return res.send(musics);
+    } catch (error) {
+      next(ApiError.badRequest('Параметры фильтрации неверные', datalog));
+      return;
+    }
   }
 
   async delete(){
