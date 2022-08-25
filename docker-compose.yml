@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "music"
+      POSTGRES_USER: "kodex"
+      POSTGRES_PASSWORD: "kodex"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  site:
+    container_name: kodex
+    image: kodex
+    environment:
+        - APP_PORT=5000
+        - DB_NAME=music
+        - DB_PORT=5432
+        - DB_HOST=postgres
+        - DB_PASS=kodex
+        - DB_USER=kodex
+        - SECRET_KEY=secret
+    ports:
+      - "5000:5000"
+    build:
+        context: .
+        dockerfile: Dockerfile
+
+    links:
+        - postgres
+    restart: always
+    depends_on:
+        - postgres
