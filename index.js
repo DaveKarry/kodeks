@@ -2,8 +2,8 @@ const express = require('express');
 const {sequelize} = require('./database/initdb');
 const errorHandler = require('./middlware/errorHandler');
 const router = require('./routers');
-const formData = require('express-form-data');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const swaggerUI = require('swagger-ui-express');
 const docs = require('./docs');
 require('dotenv').config();
@@ -15,8 +15,8 @@ app.use(cors());
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 app.use(express.json());
+app.use(fileUpload({}));
 app.use(express.urlencoded({extended: true,}));
-app.use(formData.parse({ autoFields: true }));
 
 
 app.use('/api',router);

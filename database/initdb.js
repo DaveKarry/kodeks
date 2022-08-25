@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 const AuthorModel = require('../models/authorModel');
+const musicModel = require('../models/musicModel');
 const UserModel = require('../models/userModel');
 
 require('dotenv').config();
@@ -15,13 +16,19 @@ const sequelize = new Sequelize(`postgres://${db_user}:${db_pass}@${db_host}:${p
 
 const User = UserModel(sequelize);
 const Author = AuthorModel(sequelize);
+const Music = musicModel(sequelize);
 
 User.hasOne(Author);
 Author.belongsTo(User);
 
 
+Author.hasOne(Music);
+Music.belongsTo(Author);
+
+
 module.exports = {
   sequelize,
   User,
-  Author
+  Author,
+  Music
 };

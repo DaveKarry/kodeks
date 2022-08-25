@@ -374,6 +374,10 @@ module.exports = {
                     'type': 'string',
                     'description': 'id музыканта'
                   },
+                  'name': {
+                    'type': 'string',
+                    'description': 'название песни'
+                  }
                 }
               }
             }
