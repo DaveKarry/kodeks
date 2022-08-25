@@ -20,13 +20,16 @@ class UserController{
     if (!login||!password){
       return next(ApiError.badRequest('Пустые поля', datalog));
     }
-    const candidate = await User.findOne({where: {login}});
-    if (candidate){
-      return next(ApiError.badRequest('Пользователь с такой почтой зарегистрирован', datalog));
-    }
     const hashPassword = await bcrypt.hash(password, 3);
-    const user = await User.create({login, password: hashPassword}).catch(()=>{
-      next(ApiError.badRequest('Ошибка валидации', datalog));
+    const user = await User.create({
+      login: login.trim().toLowerCase(),
+      password: hashPassword
+    }).catch(()=>{
+      if (err?.original?.code === '23505'){
+        next(ApiError.badRequest('Пользователь с такой почтой зарегистрирован', datalog));
+      }else {
+        next(ApiError.badRequest('Ошибка валидации', datalog));
+      }
     });
     if (user){
       logSuccess(datalog);

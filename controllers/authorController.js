@@ -15,7 +15,10 @@ class AuthorController{
     if (!name) {
       return next(ApiError.badRequest('Пустые поля', datalog));
     }
-    const newAuthor = await Author.create({name, userId: id}).catch((err)=>{
+    const newAuthor = await Author.create({
+      name: name.trim().toLowerCase(),
+      userId: id
+    }).catch((err)=>{
       // Дупликат
       if (err?.original?.code === '23505'){
         next(ApiError.badRequest('Уже существует музыкант', datalog));
@@ -64,7 +67,9 @@ class AuthorController{
     const {id} = req.params;
     const {name} = req.body;
     const datalog = createDatalog(req);
-    const result = await Author.update({ name: name }, {
+    const result = await Author.update({
+      name: name.trim().toLowerCase()
+    }, {
       where: { id },
       returning: true,
     }).catch((err)=>{
