@@ -204,6 +204,24 @@ module.exports = {
             }
           }
         }
+      },
+      'get':{
+        'tags': [
+          'author'
+        ],
+        'summary': 'Получает авторов',
+        'responses': {
+          '200': {
+            'description': 'Запись автора из бд',
+            'content': {
+              'application/json': {
+                'schema': {
+                  $ref:'#/components/schemas/Author'
+                }
+              }
+            },
+          }
+        }
       }
     },
     '/api/author/v1/{id}': {
@@ -257,6 +275,48 @@ module.exports = {
                     'message': {
                       'type': 'string',
                       'description': 'Ошибка неверный формат id'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      'delete':{
+        'tags': [
+          'author'
+        ],
+        'summary': 'Удаляет автора по id',
+        parameters:[
+          {
+            name:'id',
+            in:'path',
+            required:true,
+            description: 'id пользователя'
+          }
+        ],
+        'responses': {
+          '200': {
+            'description': 'Запись автора из бд',
+            'content': {
+              'application/json': {
+                'schema': {
+                  $ref:'#/components/schemas/Author'
+                }
+              }
+            },
+          },
+          '404': {
+            'description': 'Запись автора из бд',
+            'content':{
+              'application/json': {
+                'schema': {
+                  'type': 'object',
+                  'properties': {
+                    'message': {
+                      'type': 'string',
+                      'description': 'не найден'
                     }
                   }
                 }

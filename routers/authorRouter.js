@@ -28,7 +28,7 @@ router.get('/v1/:id',authHandler, AuthorController.getOne);
 router.get('/v1',authHandler, AuthorController.getAll);
 
 router.put('/v1',authHandler, AuthorController.update);
-router.delete('/v1',authHandler, AuthorController.delete);
+router.delete('/v1/:id',authHandler, AuthorController.delete);
 
 
 module.exports = router;

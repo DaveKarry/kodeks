@@ -30,8 +30,11 @@ class AuthorController{
     return;
 
   }
-  async getAll(req,res){
-    res.send('не то');
+  async getAll(req,res, next){
+    const authors = await Author.findAll({attributes: ['id','name']});
+    const datalog = createDatalog(req);
+    logSuccess(datalog);
+    return res.json(authors);
   }
 
 
@@ -47,6 +50,8 @@ class AuthorController{
       return;
     }
     if (author){
+      logSuccess(datalog);
+
       res.json(author);
     } else {
       next(ApiError.notFound('Не найден', datalog));
@@ -59,8 +64,24 @@ class AuthorController{
 
   }
 
-  async delete(req,res){
+  async delete(req,res, next){
+    const {id} = req.params;
+    const datalog = createDatalog(req);
 
+    const result = await Author.destroy({
+      where: {
+        id
+      }
+    });
+    if (result){
+      logSuccess(datalog);
+
+      return res.status('200').json('Удалено');
+    }
+
+    next(ApiError.notFound(`Не найден ${id}`, datalog));
+    
+    return;
   }
 
 }
