@@ -103,8 +103,24 @@ class MusicController{
     }
   }
 
-  async delete(){
+  async delete(req,res, next){
+    const {id} = req.params;
+    const datalog = createDatalog(req);
+    const name = await Music.findByPk(id);
+    const result = await Music.destroy({
+      where: {
+        id
+      }
+    });
+    if (result){
+      logSuccess(datalog);
+      fs.rmSync(`files/${id}/${name}`);
+      return res.status(200).json('Удалено');
+    }
 
+    next(ApiError.notFound(`Не найден ${id}`, datalog));
+    
+    return;
   }
   async update(){
         
