@@ -51,5 +51,12 @@ module.exports = (sequelize) => {
       },
       
     }
+  },{
+    indexes: [
+      {
+        unique: true,
+        fields: ['name']
+      },
+    ]
   });
 };
