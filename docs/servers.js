@@ -1,7 +1,10 @@
+require('dotenv').config();
+require('dotenv-defaults').config();
+
 module.exports = {
   servers:[
     {
-      url:'http://localhost:5000',
+      url:`http://localhost:${process.env.APP_PORT}`,
       description:'Local server'
     }
   ]
