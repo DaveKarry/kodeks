@@ -52,8 +52,17 @@ class MusicController{
     return res.json(newMusic);
   }
 
-  async getOne(){
+  async getOne(req,res, next){
+    const {id} = req.query;
+    const datalog = createDatalog(req);
+    const music = await Music.findByPk(id, {attributes: ['name']});
+    if (music){
+      logSuccess(datalog);
+      return res.status(200).json(music);
+    }
 
+    next(ApiError.notFound(`Не найден ${id}`, datalog));
+    return;
   }
 
   async get(req,res,next){
