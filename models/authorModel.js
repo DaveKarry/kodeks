@@ -13,16 +13,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       unique: true,
       validate: {
-        // /\/\онеточка не пройдет
-        isAlpha: true,
-        isLowercase: true,
-        notEmpty: true,
-        isMonetochka(value) {
-          if (value === 'monetocka') {
-            // throw ApiError.badRequest('Ошибка валидации', datalog)
-            throw new Error({code: '6000', message: 'no monetocka'});
-          }
-        }
+        notIn:[['monetochka', 'монеточка']],
+        notEmpty: true
       }
     }
   });
