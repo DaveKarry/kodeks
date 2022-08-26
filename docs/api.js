@@ -20,7 +20,7 @@ module.exports = {
                   'login': {
                     'type': 'string',
                     'format': 'email',
-                    'description': 'Почта введеная при регистрации'
+                    'description': 'Почта для регистрации'
                   },
                   'password': {
                     'type': 'string',
@@ -268,17 +268,10 @@ module.exports = {
         ],
         'responses': {
           '200': {
-            'description': 'Запись автора из бд',
-            'content': {
-              'application/json': {
-                'schema': {
-                  $ref:'#/components/schemas/Author'
-                }
-              }
-            },
+            'description': 'Удалено',
           },
           '404': {
-            'description': 'Запись автора из бд',
+            'description': 'Ошибка',
             'content':{
               'application/json': {
                 'schema': {
@@ -458,6 +451,26 @@ module.exports = {
                 }
               }
             }
+          }
+        }
+      }
+    },
+    '/api/music/v1/{id}': {
+      'delete':{
+        'tags': [
+          'music'
+        ],
+        'summary': 'Удаление музыки',
+        parameters:[
+          {
+            name:'id',
+            in:'query',
+            description: 'id'
+          }
+        ],
+        'responses': {
+          '200': {
+            'description': 'Удалено',
           }
         }
       }

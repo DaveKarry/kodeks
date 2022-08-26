@@ -52,19 +52,7 @@ class MusicController{
     return res.json(newMusic);
   }
 
-  async getOne(req,res, next){
-    const {id} = req.query;
-    const datalog = createDatalog(req);
-    const music = await Music.findByPk(id, {attributes: ['name']});
-    if (music){
-      logSuccess(datalog);
-      return res.status(200).json(music);
-    }
-
-    next(ApiError.notFound(`Не найден ${id}`, datalog));
-    return;
-  }
-
+  //  getOne и get работаю одинакого, ведь я могу запросить 1 id
   async get(req,res,next){
     const {limit, offset, id, authorId, name, start, end} = req.query;
     const datalog = createDatalog(req);

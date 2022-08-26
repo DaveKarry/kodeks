@@ -47,6 +47,17 @@ module.exports = {
             'description': 'Ошибка валидации'
           }
         }
+      },
+      Music: {
+        type: 'object',
+        properties:{
+          id: {},
+          name: {},
+          path: {},
+          createdAt: {},
+          updatedAt: {},
+          authorId: {}
+        }
       }
     }
   },
